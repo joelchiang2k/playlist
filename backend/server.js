@@ -8,8 +8,8 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 
-const username = encodeURIComponent(process.env.MONGO_USERNAME);
-const password = encodeURIComponent(process.env.MONGO_PASSWORD);
+const username = encodeURIComponent(process.env.REACT_APP_MONGO_USERNAME);
+const password = encodeURIComponent(process.env.REACT_APP_MONGO_PASSWORD);
 
 const app = express();
 app.use(bodyParser.json());
@@ -31,7 +31,7 @@ const server = new ApolloServer({
 mongoose.connect(uri, { useNewUrlParser: true} )
     .then(() => {
         console.log("MongoDB Connection Successful");
-        return server.listen({port: process.env.PORT})
+        return server.listen({port: process.env.REACT_APP_PORT})
     })
     .then((res) => {
         console.log(`Server running at ${res.url}`)

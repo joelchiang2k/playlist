@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 
 const YoutubePlayer = () => {
     const [query, setQuery] = useState("");
-    const YOUTUBE_API_KEY = 'AIzaSyDsYTLQcR4WMSrpwsCxY7sFxPv7ocPYJuE';
+    const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
     const [queue, setQueue] = useState([]);
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
