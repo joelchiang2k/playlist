@@ -10,11 +10,14 @@ const SongList = () => {
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
     const [canPlayThrough, setCanPlayThrough] = useState(false);
     const [clickedShuffle, setClickedShuffle] = useState(false);
+    const [clickedStartPlaylist, setClickedStartPlaylist] = useState(false);
+    const [clickedPlay, setClickedPlay] = useState(false);
     const inputRef = useRef(null);
     const audioRef = useRef(null);
     
     const { data, refetch } = useFetch();
     // Ensure data and data.songs are defined before usage
+    //getSongs should be renamed
     const songs = data?.getSongs ?? [];
     const [addSong] = useMutation(ADD_SONG);
     const [deleteSong] = useMutation(DELETE_SONG);
@@ -24,10 +27,17 @@ const SongList = () => {
         if (canPlayThrough && clickedShuffle) {
             setClickedShuffle(false);
             handlePlay();
+        }else if(canPlayThrough && clickedStartPlaylist){
+            setClickedStartPlaylist(false);
+            handlePlay();
+        }else if(canPlayThrough && clickedPlay){
+            setClickedPlay(false);
+            handlePlay();
         }
-    }, [canPlayThrough, clickedShuffle]);
+    }, [canPlayThrough, clickedShuffle, clickedPlay, clickedStartPlaylist]);
 
     // Handle song ended event
+    //might not need this
     useEffect(() => {
         if (songs.length === 0) {
             setCurrentSongIndex(0);
@@ -133,9 +143,10 @@ const SongList = () => {
                 {songs.length > 0 && (
                     <>
                         <button onClick={() => {
-                            setCurrentSongIndex(0);
-                            handlePlay();
-                        }}>Start Playlist</button>
+                            setCurrentSongIndex(0)
+                            setClickedStartPlaylist(true)
+                        }}
+                           >Start Playlist</button>
                         <button onClick={handleShuffle}>Shuffle Play</button>
                     </>
                 )}
@@ -148,7 +159,7 @@ const SongList = () => {
                             {song.name}
                             <button onClick={() => {
                                 setCurrentSongIndex(index);
-                                handlePlay();
+                                setClickedPlay(true);
                             }}>Play</button>
                             <button onClick={() => handleRemove(song._id)}>Remove</button>
                         </li>
