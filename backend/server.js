@@ -13,6 +13,7 @@ const password = encodeURIComponent(process.env.REACT_APP_MONGO_PASSWORD);
 
 const app = express();
 app.use(bodyParser.json());
+//changes
 
 const uri = `mongodb+srv://${username}:${password}@serverlessinstance0.21ikl5q.mongodb.net/?retryWrites=true&w=majority&appName=ServerlessInstance0`;
 
